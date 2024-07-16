@@ -1,40 +1,34 @@
-"""
-This module contains DuckDuckGoSearchPage,
-the page object for the DuckDuckGo search page.
-"""
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 
 class LoginPage:
+    # URL of the login page
+    baseURL = 'https://www.saucedemo.com/'
 
-  # URL
+    # Locators for elements on the login page
+    username = (By.ID, 'user-name')
+    password = (By.ID, 'password')
+    login_button = (By.ID, 'login-button')
 
-  URL = 'https://www.saucedemo.com/'
+    # Constructor to initialize the class with a browser instance
+    def __init__(self, browser):
+        self.browser = browser
 
-  # Locators
+    # Method to load the login page
+    def load(self):
+        self.browser.get(self.baseURL)
 
-  USERNAME_INPUT = (By.ID, 'user-name')
-  PASSWORD_INPUT = (By.ID, 'password')
-  LOGIN_BUTTON = (By.ID, 'login-button')
+    # Method to perform login with provided credentials
+    def login(self, username, password):
+        # Locate the username input field and enter the provided username
+        username_input = self.browser.find_element(*self.username)
+        username_input.send_keys(username)
 
-  # Initializer
+        # Locate the password input field and enter the provided password
+        password_input = self.browser.find_element(*self.password)
+        password_input.send_keys(password)
 
-  def __init__(self, browser):
-    self.browser = browser
-
-  # Interaction Methods
-
-  def load(self):
-    self.browser.get(self.URL)
-
-  def login(self, phrase):
-    username_input = self.browser.find_element(*self.USERNAME_INPUT)
-    username_input.send_keys(phrase + Keys.RETURN)
-
-    password_input = self.browser.find_element(*self.PASSWORD_INPUT)
-    password_input.send_keys(phrase + Keys.RETURN)
-
-    login_button = self.browser.find_element(*self.LOGIN_BUTTON)
-    login_button.click()
+        # Locate the login button and click on it to submit the login form
+        login_button = self.browser.find_element(*self.login_button)
+        login_button.click()

@@ -1,22 +1,22 @@
-"""
-These tests cover Login page.
-"""
+from pages.result import Result  # Importing Result page object
+from pages.login import LoginPage  # Importing LoginPage page object
 
-import pytest
+USERNAME = 'error_user'  # Username used for login
+PASSWORD = 'secret_sauce'  # Password used for login
 
-from pages.actual import Result
-from pages.login import LoginPage
-
-USERNAME= 'error_user'
-PASSWORD= 'secret_sauce'
-
+# Define a test function named test_login_page that takes 'browser' fixture as an argument
 def test_login_page(browser):
-  login_page = LoginPage(browser)
-  login_page.load()
-  login_page.login(USERNAME,PASSWORD)
-  actual= Result(browser)
-  assert actual.check()
-  
-
-
-
+    # Instantiate LoginPage object with the 'browser' fixture
+    login_page = LoginPage(browser)
+    
+    # Load the login page
+    login_page.load()
+    
+    # Perform login with provided username and password
+    login_page.login(USERNAME, PASSWORD)
+    
+    # Instantiate Result page object with the 'browser' fixture
+    result = Result(browser)
+    
+    # Assert that the login was successful by checking some condition on the Result page
+    assert result.check()

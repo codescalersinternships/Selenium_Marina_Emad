@@ -11,5 +11,7 @@ This repository contains Selenium tests for a web application using pytest as th
 ## Running the Tests
 
 ```bash
-pytest
+python3 -m pytest -v
+
+```
 
